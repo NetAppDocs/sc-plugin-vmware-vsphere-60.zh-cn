@@ -1,0 +1,39 @@
+---
+sidebar: sidebar 
+permalink: scpivs44_download_job_logs.html 
+keywords:  
+summary: 您可以从SnapCenter VMware vSphere客户端的信息板上的作业监控选项卡下载作业日志。 
+---
+= 下载作业日志
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+您可以从SnapCenter VMware vSphere客户端的信息板上的作业监控选项卡下载作业日志。
+
+如果在使用VMware vSphere客户端时遇到意外行为、您可以使用日志文件确定发生原因 并解决问题。
+
+
+NOTE: 保留作业日志的默认值为 30 天；保留作业的默认值为 90 天。早于所配置保留时间的作业日志和作业每六小时清除一次。您可以使用配置 `jobs/cleanup` REST API修改作业和作业日志的保留时间。您不能修改清除计划。
+
+.步骤
+. 从vCenter客户端快捷方式页面中、选择适用于VMware vSphere的SnapCenter插件(SCV)。
+. 在选择控制阀的左侧导航窗格中，选择*"Danitor*(仪表板)">"*Job Monitor*(作业监视器)"。
+. 在作业监视器标题栏中选择下载图标。
++
+您可能需要向右滚动才能看到图标。
+
++
+您也可以双击作业以访问作业详细信息窗口，然后单击 * 下载作业日志 * 。
+
+
+
+.结果
+作业日志位于部署适用于VMware vSphere的SnapCenter插件的Linux VM主机上。默认作业日志位置为 `/var/log/netapp`。
+
+如果您尝试下载作业日志，但错误消息中名为的日志文件已被删除，则可能会遇到以下错误： `HTTP ERROR 500 Problem accessing /export-scv-logs`。要更正此错误，请检查错误消息中命名的文件的文件访问状态和权限，并更正访问问题。

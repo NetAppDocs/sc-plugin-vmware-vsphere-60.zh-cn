@@ -1,0 +1,21 @@
+---
+sidebar: sidebar 
+permalink: scpivs44_create_the_scbr_override_file.html 
+keywords:  
+summary: '此 `scbr.override` 配置文件由适用于VMware vSphere的SnapCenter插件在支持基于SnapCenter应用程序的数据保护操作的环境中使用。' 
+---
+= 创建 scbr.override 配置文件
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+此 `scbr.override` 配置文件由适用于VMware vSphere的SnapCenter插件在支持基于SnapCenter应用程序的数据保护操作的环境中使用。
+
+. 转到。 `/opt/netapp/scvservice/standalone_aegis/etc/scbr/scbr.override-template`
+. 将文件复制 `scbr.override-template` 到目录中名为的新文件 `scbr.override` `\opt\netapp\scvservice\standalone_aegis\etc\scbr` 。
+

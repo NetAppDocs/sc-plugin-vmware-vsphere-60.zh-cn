@@ -1,0 +1,72 @@
+---
+sidebar: sidebar 
+permalink: scpivs44_how_restore_operations_are_performed.html 
+keywords:  
+summary: 对于 VMFS 环境，适用于 VMware vSphere 的 SnapCenter 插件使用 Storage VMotion 的克隆和挂载操作来执行还原操作。对于 NFS 环境，此插件使用原生 ONTAP 单文件 SnapRestore （ SFSR ）来提高大多数还原操作的效率。对于 VVOL VM ，此插件使用 ONTAP 单文件快照还原和 SnapMirror 还原执行还原操作。 
+---
+= 如何执行还原操作
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+对于 VMFS 环境，适用于 VMware vSphere 的 SnapCenter 插件使用 Storage VMotion 的克隆和挂载操作来执行还原操作。对于 NFS 环境，此插件使用原生 ONTAP 单文件 SnapRestore （ SFSR ）来提高大多数还原操作的效率。对于 VVOL VM ，此插件使用 ONTAP 单文件快照还原（ ONTAP SFSR ）和 SnapMirror 还原执行还原操作。下表列出了如何执行还原操作。
+
+|===
+| 还原操作 | 发件人 | 使用执行 
+
+
+| VM 和 VMDK | 主备份 | NFS 环境： ONTAP 单文件 SnapRestore VMFS 环境：使用 Storage VMotion 克隆和挂载 
+
+
+| VM 和 VMDK | 二级备份 | NFS 环境： ONTAP 单文件 SnapRestore VMFS 环境：使用 Storage VMotion 克隆和挂载 
+
+
+| 已删除 VM 和 VMDK | 主备份 | NFS 环境： ONTAP 单文件 SnapRestore VMFS 环境：使用 Storage VMotion 克隆和挂载 
+
+
+| 已删除 VM 和 VMDK | 二级备份 | NFS 环境：使用 Storage VMotion VMFS 环境克隆和挂载：使用 Storage VMotion 克隆和挂载 
+
+
+| VM 和 VMDK | VM 一致的主备份 | NFS 环境： ONTAP 单文件 SnapRestore VMFS 环境：使用 Storage VMotion 克隆和挂载 
+
+
+| VM 和 VMDK | VM 一致的二级备份 | NFS 环境：使用 Storage VMotion VMFS 环境克隆和挂载：使用 Storage VMotion 克隆和挂载 
+
+
+| VVol 虚拟机 | 崩溃状态一致的主备份 | 适用于所有协议的 ONTAP 单文件 SnapRestore 
+
+
+| VVol 虚拟机 | 崩溃状态一致的二级备份 | 适用于所有协议的 ONTAP SnapMirror 还原 
+
+
+| FlexGroup VM | 主备份  a| 
+NFS 环境： * ONTAP 单文件 SnapRestore （如果使用的是 ONTAP 9.10.1 及更高版本） * 在 ONTAP 先前版本上使用 Storage VMotion 克隆并挂载
+
+VMFS 环境：不支持 FlexGroup
+
+
+
+| FlexGroup VM | 二级备份  a| 
+NFS 环境：
+
+* ONTAP SnapMirror 还原（如果使用的是 ONTAP 9.10.1 及更高版本）
+* 使用适用于 ONTAP 的 Storage VMotion 先前版本克隆和挂载
+
+
+VMFS 环境：不支持 FlexGroup
+
+|===
+
+NOTE: 在VVol容器重新平衡之后、您无法还原VVol虚拟机。
+
+子系统文件还原操作可在 NFS 和 VMFS 环境中使用克隆和挂载操作（而不是 Storage VMotion ）来执行。
+
+
+IMPORTANT: 在还原操作期间、您可能会遇到此错误、或者在适用于VMware vSphere的SnapCenter插件尝试对克隆重新签名时发生此错误 `Host unresolved volumes is null` `Exception while calling pre-restore on SCV….Error mounting cloned LUN as datastore…` 。由于VMware的限制、适用于VMware vSphere的SnapCenter插件无法控制高级ESXi主机配置中的自动重新签名值。对于基于TCP的NVMe和基于FC的NVMe存储、添加新子系统时、选择控制阀无法动态添加控制器。您应在挂载操作之前进行必要的映射。
+
+有关此错误的详细信息、请参见 https://kb.netapp.com/mgmt/SnapCenter/SCV_clone_or_restores_fail_with_error_'Host_Unresolved_volumes_is_null'#["知识库文章：SCV克隆或还原失败、并显示错误"主机未解析的卷为空"^] 。

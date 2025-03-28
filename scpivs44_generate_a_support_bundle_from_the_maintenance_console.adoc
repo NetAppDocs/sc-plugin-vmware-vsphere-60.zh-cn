@@ -1,0 +1,30 @@
+---
+sidebar: sidebar 
+permalink: scpivs44_generate_a_support_bundle_from_the_maintenance_console.html 
+keywords:  
+summary: 您可以从维护控制台生成支持包。 
+---
+= 从维护控制台生成支持包
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+.步骤
+[role="lead"]
+. 从VMware vSphere客户端中、选择适用于VMware vSphere的SnapCenter插件所在的虚拟机。
+. 在虚拟设备的*Summary (摘要)*选项卡中，单击*Launch Remote Console (启动远程控制台)或Launch Web Console*(启动Web控制台)以打开维护控制台窗口，然后登录。
++
+有关访问和登录维护控制台的信息，请参见 link:scpivs44_access_the_maintenance_console.html["访问维护控制台"^]。
+
++
+image:scpivs44_image11.png["维护控制台窗口"]
+
+. 在主菜单中输入选项 *4 ）支持和诊断 * 。
+. 在 Support and Diagnostics Menu 中，输入选项 * ） Generate support bundle* 。
+
+
+要访问支持包，请在 "Support and Diagnostics Menu" （支持和诊断菜单）中输入选项 *2 ）访问诊断 Shell * 。在控制台中，导航至 `/support/support/<bundle_name>.tar.gz`。

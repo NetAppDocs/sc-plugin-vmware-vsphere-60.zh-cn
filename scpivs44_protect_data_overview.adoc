@@ -1,0 +1,33 @@
+---
+sidebar: sidebar 
+permalink: scpivs44_protect_data_overview.html 
+keywords:  
+summary: 所有备份操作都对资源组执行，该资源组可以包含一个或多个虚拟机和数据存储库的任意组合。您可以按需备份，也可以根据定义的保护计划进行备份。 
+---
+= 数据保护工作流
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+使用SnapCenter vSphere客户端对VM、VMDK和数据存储库执行数据保护操作。所有备份操作都对资源组执行，该资源组可以包含一个或多个虚拟机和数据存储库的任意组合。您可以按需备份，也可以根据定义的保护计划进行备份。
+
+备份数据存储库时，您将备份该数据存储库中的所有 VM 。
+
+不能在同一资源组上同时执行备份和还原操作。
+
+您应查看有关适用于VMware vSphere的SnapCenter插件支持和不支持的内容的信息。 link:scpivs44_deployment_planning_and_requirements.html["部署规划和要求"]
+
+在 MetroCluster 配置中：
+
+* 适用于VMware vSphere的SnapCenter插件可能无法在故障转移后检测到保护关系。有关详细信息、请参见 https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapCenter/Unable_to_detect_SnapMirror_or_SnapVault_relationship_after_MetroCluster_failover["知识库文章： Unable to detect SnapMirror or SnapVault relationship after MetroCluster failover"^] 。
+* 如果在切换/切回后备份失败并显示NFS和VMFS VM错误 `Unable to discover resources on SCV: <xxx>…` 、请从维护控制台重新启动SnapCenter VMware服务。
+
+
+以下工作流图显示了必须执行备份操作的顺序：
+
+image:scpivs44_image13.png["备份操作工作流"]

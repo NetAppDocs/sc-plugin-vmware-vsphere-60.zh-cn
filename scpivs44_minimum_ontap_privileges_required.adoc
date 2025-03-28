@@ -1,0 +1,89 @@
+---
+sidebar: sidebar 
+permalink: scpivs44_minimum_ontap_privileges_required.html 
+keywords:  
+summary: 所需的最小 ONTAP 权限因用于数据保护的 SnapCenter 插件而异。 
+---
+= 需要ONTAP 权限
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+所需的最小 ONTAP 权限因用于数据保护的 SnapCenter 插件而异。
+
+
+NOTE: 从适用于VMware的SnapCenter插件(SCV) 5.0开始、您需要添加HTTP和ONTAPI类型的应用程序、作为对SCV具有基于角色的自定义访问权限的任何ONTAP用户的用户登录方法。如果无法访问这些应用程序、备份将失败。您需要重新启动选择控制阀服务才能识别对ONTAP用户登录方法所做的更改。
+
+
+
+== 所需的最小 ONTAP 权限
+
+所有 SnapCenter 插件都需要以下最低权限。
+
+|===
+
+
+| 完全访问命令：ONTAP 8.3及更高版本所需的最低权限。 
+
+
+| event generate-autosupport-log 
+
+
+| 作业历史记录显示作业显示作业停止 
+
+
+| LUN lun create lun delete lun igroup add lun igroup create lun igroup delete lun igroup rename lun igroup show lun mapping add-reporting-nodes lun mapping remove reporting-nodes lun mapping show lun modify lun move-in-volume lun offline lun persist-reservation clear lun lun serial resize lun serial lun show 
+
+
+| snapmirror list-destinations snapmirror policy add-rule snapmirror policy modify-rule snapmirror policy remove-rule snapmirror policy show snapmirror restore snapmirror show snapmirror show-history snapmirror update snapmirror update-ls-set 
+
+
+| 版本 
+
+
+| volume克隆create volume克隆show volume克隆拆分开始卷克隆拆分停止卷create volume delete volume销毁卷文件克隆create volume file show-disk-usage_volume脱机卷联机卷修改卷qtree create volume qtree delete卷qtree修改卷qtree show volume限制卷show volume show卷 Snapshot create volume Snapshot delete volume Snapshot修改卷快照重命名卷快照还原卷快照还原文件卷快照还原文件卷快照show volume卸载 
+
+
+| Vserver CIFS vserver cCIFS share create vserver cCIFS share delete vserver cCIFS卷影复制show vserver cCIFS share show vserver cCIFS show vserver export -policy vserver export -policy create vserver export -policy Rule create vserver export -policy规则show vserver export -policy show vserver iSCSI vserver iSCSI vserver iSCSI connection show vserver NVMe子系统控制器 vserver NVMe subsystem controller show vserver NVMe子系统映射vserver NVMe子系统映射show vserver NVMe子系统映射添加vserver NVMe子系统映射删除vserver NVMe子系统host show vserver NVMe子系统host添加vserver NVMe子系统主机删除vserver NVMe子系统显示vserver NVMe子系统删除vserver NVMe命名空间 show network interface network interface故障转移组 
+|===
+|===
+| 只读命令： ONTAP 8.3 及更高版本所需的最低权限 
+
+
+| cluster Identity show network interface show vserver vserver peer-vserver show 
+|===
+在创建要与数据SVserver关联的角色时、可以忽略_cluster Identity show_ cluster level命令。
+
+
+NOTE: 您可以忽略有关不受支持的Vserver命令的警告消息。
+
+
+
+== 其他 ONTAP 信息
+
+* 如果您运行的是 ONTAP 8.2.x ：
++
+您必须在Storage VM上以身份登录 `vsadmin` 、才能拥有执行适用于VMware vSphere的SnapCenter插件操作的适当权限。
+
+* 如果您运行的是 ONTAP 8.3 及更高版本：
++
+您必须以或的身份登录 `vsadmin` 、而此角色具有上表中列出的最低权限。
+
+* 您必须是集群管理员才能创建和管理用户角色。您可以将用户与集群Storage VM或Storage VM相关联。
+* 要使用SnapMirror活动同步功能、您需要ONTAP 9.12.1或更高版本。
+* 要使用防篡改Snapshot (TPS)功能：
++
+** 对于SAN、您需要ONTAP 9.13.1及更高版本
+** 对于NFS、您需要ONTAP 9.12.1及更高版本
+
+
+* 对于基于TCP的NVMe和基于FC的NVMe协议、您需要使用NVMe.10.1 ONTAP 9及更高版本。
+
+
+
+NOTE: 从ONTAP 9.11.1版开始、与ONTAP集群的通信将通过REST API进行。ONTAP用户应启用http应用程序。但是、如果发现ONTAP REST API存在问题、则配置密钥"FORCE-ZAPI"有助于切换到传统ZAPI工作流。您可能需要使用配置API添加或更新此密钥、并将其设置为true。有关详细信息、请参见知识库文章 https://kb.netapp.com/mgmt/SnapCenter/How_to_use_RestAPI_to_edit_configuration_parameters_in_SCV["如何使用RestAPI编辑选择控制阀中的配置参数"] 。
