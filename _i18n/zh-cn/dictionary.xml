@@ -2160,4 +2160,5 @@
   <block id="c257f5c852c12409e63afb17104f69c5" category="sidebar">REST API</block>
   <block id="a3d53cfe9124531cb5f9bbfefe704326" category="sidebar">用于修改内置计划的 REST API 工作流</block>
   <block id="3da6944b1baaec4beb70694ac307fd1f" category="sidebar">升级到同一版本的新修补程序</block>
+  <block id="88464b0f22e28142bc76c51bba424a64" category="cell">NFS 环境：ONTAP SnapMirror 恢复 VMFS 环境：使用 Storage VMotion 克隆和挂载</block>
 </blocks>
